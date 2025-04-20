@@ -182,20 +182,24 @@
         <div class="window-content">
             <h2>My Projects</h2>
             <div style="margin-bottom: 15px;">
-                <h3>Retro Portfolio Website</h3>
-                <p>A Windows 95-inspired portfolio website showcasing my work.</p>
-                <p><strong>Technologies:</strong> HTML, CSS, JavaScript</p>
-            </div>
-            <div style="margin-bottom: 15px;">
                 <h3>Evaluating Weight Initialization Methods for Deep Neural Networks</h3>
                 <p>- Developed a CUDA-accelerated PyTorch training pipeline, implementing custom GPU-optimized weight initialization (He, Xavier, LeCun, Random) for faster convergence and efficient memory management.</p>
                 <p>- Conducted controlled experiments on ResNet-18 (CIFAR-10) and DistilBERT (IMDB), leveraging CUDA Graphs and parallel execution to reduce training latency and optimize gradient flow.</p>
                 <p>- Found that He initialization improved convergence by 30% in ReLU networks, while custom Xavier initialization enhanced gradient stability; results were presented at the Wentworth Academic Excellence Showcase (March 2025).</p>
             </div>
             <div style="margin-bottom: 15px;">
-                <h3>Nostalgic Weather App</h3>
-                <p>Weather forecasting with 90s design elements.</p>
-                <p><strong>Technologies:</strong> Vue.js, Weather API</p>
+                <h3>Distributed In-Memory Cache</h3>
+                <p>Engineered a high-performance key-value store in Rust using tokio's async runtime and atomic operations, achieving 85% of Redis' throughput in benchmark tests (120,000 RPS via wrk).</p>
+                <p>Implemented thread-safe storage with dashmap's sharded hash table and LRU eviction with time-complexity guarantees, reducing 99th percentile latency by 40% under heavy load.</p>
+                <p>Developed append-only persistence with CRC32 checksums, recovering 100% of data in simulated crash scenarios while maintaining < 5% write throughput penalty.</p>
+                <p>Benchmark analysis revealed our Rust implementation used 30% less memory than Redis for equivalent workloads due to zero-copy deserialization with bincode.</p>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <h3>Real Time Edge Object Detection</h3>
+                <p>Designed an optimized inference pipeline using YOLO-NAS-S with TensorRT FP16 quantization, achieving 22 FPS on Raspberry Pi 5 (4x speedup over baseline) with only 2% mAP drop on COCO validation.</p>
+                <p>Implemented a multi-threaded video processing system with OpenCV and ZeroMQ, reducing end-to-end latency to 150ms by pipelining frame capture and model execution.</p>
+                <p>Deployed containerized microservices with FastAPI and Prometheus monitoring, sustaining 50 RPS with < 100ms p99 latency on AWS EC2 g4dn instances.</p>
+                <p>Quantization-aware fine-tuning recovered 5% of accuracy loss while maintaining 3.8x model compression ratio, with findings published in project whitepaper.</p>
             </div>
         </div>
     </div>
