@@ -12,20 +12,6 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
-document.addEventListener('DOMContentLoaded', function() {
-    const startupSound = document.getElementById('startup-sound');
-    
-    // Play startup sound after a short delay
-    setTimeout(function() {
-        startupSound.play().catch(e => console.error("Audio play failed:", e));
-        
-        // Redirect to main page after startup sequence
-        setTimeout(function() {
-            window.location.href = "main.html";
-        }, 4000); // Time to show startup screen after sound starts
-    }, 2000); // Initial delay before playing sound
-});
-
 // Desktop icons click handler
 const desktopIcons = document.querySelectorAll('.desktop-icon');
 const windows = document.querySelectorAll('.window');

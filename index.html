@@ -55,23 +55,13 @@ OTI-91X ATAPI CD-ROM device driver, Rev D91XV352
         <div class="progress-message">MODE select code page function completed</div>
     </div>
     
-        <audio id="startup-sound" preload="auto">
-            <source src="images/Startsound.mp3" type="audio/mpeg">
-        </audio>
-    
     <script>
+        // Wait for DOM content to load
         document.addEventListener('DOMContentLoaded', function() {
-            const startupSound = document.getElementById('startup-sound');
-            
-            // Play startup sound after a short delay
+            // Automatically redirect to welcome page after a delay
             setTimeout(function() {
-                startupSound.play().catch(e => console.error("Audio play failed:", e));
-                
-                // Redirect to main page after startup sequence
-                setTimeout(function() {
-                    window.location.href = "main.html";
-                }, 750); // Time to show startup screen after sound starts
-            }, 2000); // Initial delay before playing sound
+                window.location.href = "welcome.html";
+            }, 4000); // Show bootup screen for 4 seconds
         });
     </script>
 </body>
