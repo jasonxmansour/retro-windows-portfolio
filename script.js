@@ -163,11 +163,38 @@ windows.forEach(windowElement => {
 // Contact form submission
 document.getElementById('contact-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    alert('Thank you for your message! I will get back to you soon.');
+    // Changed from alert to console log
+    console.log('Thank you for your message! I will get back to you soon.');
     this.reset();
 });
 
-// Start button functionality
+// Start button functionality 
 document.querySelector('.start-button').addEventListener('click', function() {
-    alert('Start menu functionality would go here in a full implementation!');
+    // Empty function - no alerts or popups
+});
+
+// Welcome overlay functionality
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('start-portfolio')) {
+        const startButton = document.getElementById('start-portfolio');
+        const welcomeOverlay = document.getElementById('welcome-overlay');
+        const startupSound = document.getElementById('startup-sound');
+        
+        // Play sound and hide overlay when Start Up button is clicked
+        startButton.addEventListener('click', function() {
+            // Play the startup sound
+            startupSound.play()
+                .then(() => {
+                    // Hide the welcome overlay with a slight delay
+                    setTimeout(function() {
+                        welcomeOverlay.style.display = 'none';
+                    }, 500);
+                })
+                .catch(e => {
+                    console.error("Audio play failed:", e);
+                    // If audio fails, still hide overlay
+                    welcomeOverlay.style.display = 'none';
+                });
+        });
+    }
 });
