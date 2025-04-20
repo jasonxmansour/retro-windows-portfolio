@@ -94,7 +94,7 @@ body {
     position: absolute;
     top: 5px;
     left: -13px;
-    gap: 0px;
+    gap: 5px;
 }
 
 .desktop-icon {
