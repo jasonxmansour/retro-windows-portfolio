@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Windows Desktop Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'VT323', monospace;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        #startup-screen {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+        }
+        
+        .startup-text {
+            font-size: 24px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
+        
+        .progress-message {
+            font-size: 24px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="startup-screen">
+        <div class="startup-text">Starting Jason Mansour's Website...</div>
+        <div class="startup-text">This driver is provided by Oak Technology, Inc.
+OTI-91X ATAPI CD-ROM device driver, Rev D91XV352
+(C)Copyright Oak Technology Inc. 1987-1997
+ Device Name     : MSCD001
+ Transfer Mode   : Programmed I/O
+ Number of drives : 1</div>
+        
+        <div class="progress-message">MODE prepare code page function completed</div>
+        <div class="progress-message">MODE select code page function completed</div>
+    </div>
+    
+        <audio id="startup-sound" preload="auto">
+            <source src="images/Startsound.mp3" type="audio/mpeg">
+        </audio>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const startupSound = document.getElementById('startup-sound');
+            
+            // Play startup sound after a short delay
+            setTimeout(function() {
+                startupSound.play().catch(e => console.error("Audio play failed:", e));
+                
+                // Redirect to main page after startup sequence
+                setTimeout(function() {
+                    window.location.href = "main.html";
+                }, 750); // Time to show startup screen after sound starts
+            }, 2000); // Initial delay before playing sound
+        });
+    </script>
+</body>
+</html>

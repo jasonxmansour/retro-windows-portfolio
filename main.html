@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Windows Desktop Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="desktop">
+        <div class="icon-grid">
+            <div class="desktop-icon" data-window="about">
+                <img src="images/network.jpg" alt="About">
+                <p>About</p>
+            </div>
+            <div class="desktop-icon" data-window="experience">
+                <img src="images/palette.jpg" alt="Experience">
+                <p>Experience</p>
+            </div>
+            <div class="desktop-icon" data-window="projects">
+                <img src="images/notepad.jpg" alt="Projects">
+                <p>Projects</p>
+            </div>
+            <div class="desktop-icon" data-window="contact">
+                <img src="images/computer.jpg" alt="Contact">
+                <p>Contact Me</p>
+            </div>
+            <div class="desktop-icon" data-window="linkedin">
+                <img src="images/linkedin .jpg" alt="LinkedIn">
+                <p>LinkedIn</p>
+            </div>
+            <div class="desktop-icon" data-window="github">
+                <img src="images/github .jpg" alt="GitHub">
+                <p>GitHub</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Windows -->
+    <div id="about-window" class="window" style="width: 400px; height: 300px; top: 50px; left: 50px;">
+        <div class="window-header">
+            <span>About Me</span>
+            <div class="window-buttons">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">✕</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>About Me</h2>
+            <p>Hello! I'm a developer passionate about creating innovative solutions with a nostalgic twist.</p>
+            <p>This portfolio website is designed to mimic the classic Windows interface that many of us grew up with.</p>
+            <p>Feel free to explore my experience, projects, and get in touch using the desktop icons.</p>
+        </div>
+    </div>
+    
+    <div id="experience-window" class="window" style="width: 450px; height: 350px; top: 80px; left: 100px;">
+        <div class="window-header">
+            <span>Experience</span>
+            <div class="window-buttons">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">✕</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>Work Experience</h2>
+            <div style="margin-bottom: 15px;">
+                <h3>Software and Automation Engineering Intern</h3>
+                <p>YMC America • Jun 2025 - Aug 2025</p>
+                <ul>
+                    <li>Upcoming Summer 2025</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div id="projects-window" class="window" style="width: 500px; height: 400px; top: 120px; left: 150px;">
+        <div class="window-header">
+            <span>Projects</span>
+            <div class="window-buttons">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">✕</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>My Projects</h2>
+            <div style="margin-bottom: 15px;">
+                <h3>Retro Portfolio Website</h3>
+                <p>A Windows 95-inspired portfolio website showcasing my work.</p>
+                <p><strong>Technologies:</strong> HTML, CSS, JavaScript</p>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <h3>Evaluating Weight Initialization Methods for Deep Neural Networks</h3>
+                <p>- Developed a CUDA-accelerated PyTorch training pipeline, implementing custom GPU-optimized weight initialization (He, Xavier, LeCun, Random) for faster convergence and efficient memory management.</p>
+                <p>- Conducted controlled experiments on ResNet-18 (CIFAR-10) and DistilBERT (IMDB), leveraging CUDA Graphs and parallel execution to reduce training latency and optimize gradient flow.</p>
+                <p>- Found that He initialization improved convergence by 30% in ReLU networks, while custom Xavier initialization enhanced gradient stability; results were presented at the Wentworth Academic Excellence Showcase (March 2025).</p>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <h3>Nostalgic Weather App</h3>
+                <p>Weather forecasting with 90s design elements.</p>
+                <p><strong>Technologies:</strong> Vue.js, Weather API</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="contact-window" class="window" style="width: 380px; height: 320px; top: 150px; left: 200px;">
+        <div class="window-header">
+            <span>Contact Me</span>
+            <div class="window-buttons">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">✕</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>Get In Touch (jmansour.dev@gmail.com)</h2>
+            <form id="contact-form" style="margin-top: 15px;">
+                <div style="margin-bottom: 10px;">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" style="width: 100%; margin-top: 5px; padding: 3px; border: 2px inset #dfdfdf;">
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" style="width: 100%; margin-top: 5px; padding: 3px; border: 2px inset #dfdfdf;">
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" style="width: 100%; margin-top: 5px; padding: 3px; border: 2px inset #dfdfdf;"></textarea>
+                </div>
+                <button type="submit" style="margin-top: 10px; padding: 3px 10px; border: 2px outset #dfdfdf; background-color: #c0c0c0; cursor: pointer;">Send Message</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="linkedin-window" class="window" style="width: 400px; height: 300px; top: 60px; left: 70px;">
+        <div class="window-header">
+            <span>LinkedIn Profile</span>
+            <div class="window-buttons">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">✕</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>LinkedIn Profile</h2>
+            <p>Click the button below to visit my LinkedIn profile:</p>
+            <button onclick="window.open('https://www.linkedin.com/in/jason-mansour/', '_blank')" style="margin-top: 15px; padding: 5px 10px; border: 2px outset #dfdfdf; background-color: #c0c0c0; cursor: pointer;">
+                Visit LinkedIn Profile
+            </button>
+        </div>
+    </div>
+
+    <div id="github-window" class="window" style="width: 400px; height: 300px; top: 80px; left: 90px;">
+        <div class="window-header">
+            <span>GitHub Profile</span>
+            <div class="window-buttons">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">✕</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>GitHub Profile</h2>
+            <p>Click the button below to visit my GitHub profile:</p>
+            <button onclick="window.open('https://github.com/jasonxmansour', '_blank')" style="margin-top: 15px; padding: 5px 10px; border: 2px outset #dfdfdf; background-color: #c0c0c0; cursor: pointer;">
+                Visit GitHub Profile
+            </button>
+        </div>
+    </div>
+    
+    <div class="taskbar">
+        <div class="start-button">
+            <span>Created by Jason Mansour</span>
+        </div>
+        <div class="time" id="current-time">00:00 AM</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

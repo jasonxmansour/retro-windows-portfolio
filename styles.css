@@ -1,0 +1,221 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'VT323', monospace;
+}
+
+/* Default cursor for the whole page */
+html, body {
+    cursor: default;
+}
+
+/* Custom pointer cursor only for clickable elements */
+.desktop-icon,
+.start-button,
+.window-button,
+button,
+input[type="submit"] {
+    cursor: url('images/cursor.png'), pointer;
+}
+
+body {
+    background-color: #317873;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#desktop {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-color: #c0c0c0;
+    border-top: 2px solid #ffffff;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+}
+
+.start-button {
+    height: 24px;
+    margin-left: 2px;
+    padding: 2px 5px;
+    display: flex;
+    align-items: center;
+    background-color: #c0c0c0;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+}
+
+.start-button:active {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+}
+
+.start-button span {
+    font-weight: bold;
+    margin-left: 5px;
+    font-size: 18px;
+}
+
+.time {
+    height: 24px;
+    margin-right: 5px;
+    padding: 2px 5px;
+    display: flex;
+    align-items: center;
+    background-color: #c0c0c0;
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    margin-left: auto;
+    font-size: 18px;
+}
+
+.icon-grid {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 5px;
+    left: -13px;
+    gap: 0px;
+}
+
+.desktop-icon {
+    width: 140px;
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.desktop-icon:hover {
+    background-color: rgba(173, 216, 230, 0.3);
+}
+
+.desktop-icon.active {
+    background-color: rgba(173, 216, 230, 0.3);
+}
+
+.desktop-icon img {
+    width: 76px;
+    height: 76px;
+    margin-bottom: 4px;
+    image-rendering: pixelated;
+}
+
+.desktop-icon p {
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    font-size: 20px;
+    max-width: 120px;
+    padding: 2px;
+}
+
+.window {
+    position: absolute;
+    background-color: #c0c0c0;
+    border-top: 2px solid #ffffff;
+    border-left: 2px solid #ffffff;
+    border-right: 2px solid #000000;
+    border-bottom: 2px solid #000000;
+    min-width: 300px;
+    min-height: 200px;
+    display: none;
+    z-index: 100;
+    resize: both;
+    overflow: auto;
+}
+
+.window-header {
+    background-color: #000080;
+    color: white;
+    padding: 3px 5px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+
+.window-buttons {
+    display: flex;
+}
+
+.window-button {
+    width: 16px;
+    height: 16px;
+    background-color: #c0c0c0;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 2px;
+}
+
+.window-button:active {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+}
+
+.window-content {
+    padding: 10px;
+    overflow: auto;
+    height: calc(100% - 28px);
+}
+
+.window-content h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.window-content h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.window-content p, .window-content li {
+    font-size: 18px;
+}
+
+.window-content label {
+    font-size: 18px;
+}
+
+.window-content input, .window-content textarea {
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+}
+
+.window-content button {
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+}
+
+.hidden {
+    display: none;
+}
