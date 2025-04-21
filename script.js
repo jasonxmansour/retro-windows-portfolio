@@ -12,6 +12,26 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
+// Set up page reload on navigation to ensure boot sequence plays
+window.addEventListener('pageshow', function(event) {
+    // Check if the page is being loaded from cache (back button)
+    if (event.persisted) {
+        // Remove session data and reload to restart the boot sequence
+        sessionStorage.removeItem('bootSequence');
+        sessionStorage.removeItem('welcomeShown');
+        window.location.href = "index.html";
+    }
+});
+
+// Reset sequence on refresh
+window.addEventListener('beforeunload', function() {
+    // If user refreshes the page, we want to restart the boot sequence
+    if (window.location.pathname.includes('main.html')) {
+        sessionStorage.removeItem('bootSequence');
+        sessionStorage.removeItem('welcomeShown');
+    }
+});
+
 // Desktop icons click handler
 const desktopIcons = document.querySelectorAll('.desktop-icon');
 const windows = document.querySelectorAll('.window');
@@ -171,30 +191,4 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
 // Start button functionality 
 document.querySelector('.start-button').addEventListener('click', function() {
     // Empty function - no alerts or popups
-});
-
-// Welcome overlay functionality
-document.addEventListener('DOMContentLoaded', function() {
-    if (document.getElementById('start-portfolio')) {
-        const startButton = document.getElementById('start-portfolio');
-        const welcomeOverlay = document.getElementById('welcome-overlay');
-        const startupSound = document.getElementById('startup-sound');
-        
-        // Play sound and hide overlay when Start Up button is clicked
-        startButton.addEventListener('click', function() {
-            // Play the startup sound
-            startupSound.play()
-                .then(() => {
-                    // Hide the welcome overlay with a slight delay
-                    setTimeout(function() {
-                        welcomeOverlay.style.display = 'none';
-                    }, 500);
-                })
-                .catch(e => {
-                    console.error("Audio play failed:", e);
-                    // If audio fails, still hide overlay
-                    welcomeOverlay.style.display = 'none';
-                });
-        });
-    }
 });

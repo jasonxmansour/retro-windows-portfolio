@@ -71,6 +71,12 @@
             border-bottom: 2px solid #ffffff;
         }
         
+        .windows-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+        }
+        
         /* Hide all alert or notification windows */
         .alert-dialog, .notification {
             display: none !important;
@@ -81,7 +87,6 @@
     <!-- Welcome overlay -->
     <div id="welcome-overlay">
         <div class="welcome-container">
-            <!-- Remove the "Close" button and alert dialog that appears -->
             <div class="welcome-header">
                 <span>Welcome</span>
                 <div class="window-controls">
@@ -281,6 +286,46 @@
     </audio>
 
     <script src="script.js"></script>
-    <!-- Remove the inline script since it's now in script.js -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // If user tries to access main.html directly without going through index.html first
+            if (!sessionStorage.getItem('bootSequence')) {
+                window.location.href = "index.html";
+                return;
+            }
+            
+            const welcomeOverlay = document.getElementById('welcome-overlay');
+            const startButton = document.getElementById('start-portfolio');
+            const startupSound = document.getElementById('startup-sound');
+            
+            // Show the welcome overlay by default
+            welcomeOverlay.style.display = 'flex';
+            
+            // Handle Start button click
+            startButton.addEventListener('click', function() {
+                // Play the startup sound
+                startupSound.play()
+                    .then(() => {
+                        // Hide the welcome overlay with a slight delay
+                        setTimeout(function() {
+                            welcomeOverlay.style.display = 'none';
+                            // Set flag to remember we've shown the welcome screen
+                            sessionStorage.setItem('welcomeShown', 'true');
+                        }, 500);
+                    })
+                    .catch(e => {
+                        console.error("Audio play failed:", e);
+                        // If audio fails, still hide overlay
+                        welcomeOverlay.style.display = 'none';
+                        sessionStorage.setItem('welcomeShown', 'true');
+                    });
+            });
+            
+            // If user already went through the welcome screen in this session, hide it
+            if (sessionStorage.getItem('welcomeShown') === 'true') {
+                welcomeOverlay.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

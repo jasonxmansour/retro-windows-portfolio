@@ -112,12 +112,15 @@
                     .then(() => {
                         // Wait for sound to finish (or a set time) before redirecting
                         setTimeout(function() {
+                            // Set flag to skip welcome screen on subsequent page loads during this session
+                            sessionStorage.setItem('welcomeShown', 'true');
                             window.location.href = "main.html";
                         }, 2500); // Adjust timing as needed for your sound
                     })
                     .catch(e => {
                         console.error("Audio play failed:", e);
                         // If audio fails, still redirect after a delay
+                        sessionStorage.setItem('welcomeShown', 'true');
                         setTimeout(function() {
                             window.location.href = "main.html";
                         }, 1000);

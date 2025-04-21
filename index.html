@@ -56,12 +56,27 @@ OTI-91X ATAPI CD-ROM device driver, Rev D91XV352
     </div>
     
     <script>
-        // Wait for DOM content to load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Automatically redirect to main page after a delay
-            setTimeout(function() {
-                window.location.href = "main.html";
-            }, 4000); // Show bootup screen for 4 seconds
+        // Store a flag in sessionStorage to track if this is a fresh visit
+        if (!sessionStorage.getItem('bootSequence')) {
+            sessionStorage.setItem('bootSequence', 'started');
+            
+            // Wait for DOM content to load
+            document.addEventListener('DOMContentLoaded', function() {
+                // Automatically redirect to main page after a delay
+                setTimeout(function() {
+                    window.location.href = "main.html";
+                }, 4000); // Show bootup screen for 4 seconds
+            });
+        } else {
+            // If this is not the first visit, redirect immediately to main
+            window.location.href = "main.html";
+        }
+        
+        // Force refresh on back button
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
         });
     </script>
 </body>
