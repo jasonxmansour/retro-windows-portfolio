@@ -6,17 +6,28 @@
 }
 
 /* Default cursor for the whole page */
-html, body {
-    cursor: default;
+html, body, #desktop, .window, .window-content, .taskbar {
+    cursor: url('images/cursor.png'), auto;
 }
 
-/* Custom pointer cursor only for clickable elements */
+/* Custom pointer cursor for clickable elements */
 .desktop-icon,
 .start-button,
 .window-button,
 button,
-input[type="submit"] {
+input[type="submit"],
+.window-header,
+a,
+form input,
+form textarea {
     cursor: url('images/cursor.png'), pointer;
+}
+
+/* Optional: You can also add a text cursor for text inputs */
+input[type="text"],
+input[type="email"],
+textarea {
+    cursor: url('images/cursor.png'), text;
 }
 
 body {
