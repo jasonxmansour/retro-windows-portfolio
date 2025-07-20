@@ -3,12 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro Windows Desktop Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Jason Mansour</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'VT323', monospace;
+        }
+
+        /* Debug cursor - try multiple formats and add a visible fallback */
+        * {
+            cursor: url('images/cursor.cur'), url('images/cursor.png'), crosshair !important;
+        }
+
+        /* Ensure body and html also get the cursor */
+        html, body {
+            cursor: url('images/cursor.cur'), url('images/cursor.png'), crosshair !important;
+        }
+
+        body {
+            background-color: #317873;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #desktop {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background-color: #c0c0c0;
+            border-top: 2px solid #ffffff;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .start-button {
+            height: 24px;
+            margin-left: 2px;
+            padding: 2px 5px;
+            display: flex;
+            align-items: center;
+            background-color: #c0c0c0;
+            border-top: 1px solid #ffffff;
+            border-left: 1px solid #ffffff;
+            border-right: 1px solid #000000;
+            border-bottom: 1px solid #000000;
+        }
+
+        .start-button:active {
+            border-top: 1px solid #000000;
+            border-left: 1px solid #000000;
+            border-right: 1px solid #ffffff;
+            border-bottom: 1px solid #ffffff;
+        }
+
+        .start-button span {
+            font-weight: bold;
+            margin-left: 5px;
+            font-size: 18px;
+        }
+
+        .time {
+            height: 24px;
+            margin-right: 5px;
+            padding: 2px 5px;
+            display: flex;
+            align-items: center;
+            background-color: #c0c0c0;
+            border-top: 1px solid #808080;
+            border-left: 1px solid #808080;
+            border-right: 1px solid #ffffff;
+            border-bottom: 1px solid #ffffff;
+            margin-left: auto;
+            font-size: 18px;
+        }
+
+        /* Original Desktop Layout */
+        .icon-grid {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 5px;
+            left: -13px;
+            gap: 5px;
+        }
+
+        .desktop-icon {
+            width: 140px;
+            height: 110px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .desktop-icon:hover {
+            background-color: rgba(173, 216, 230, 0.3);
+        }
+
+        .desktop-icon.active {
+            background-color: rgba(173, 216, 230, 0.3);
+        }
+
+        .desktop-icon img {
+            width: 76px;
+            height: 76px;
+            margin-bottom: 4px;
+            image-rendering: pixelated;
+        }
+
+        .desktop-icon p {
+            color: white;
+            text-shadow: 1px 1px 1px black;
+            font-size: 20px;
+            max-width: 120px;
+            padding: 2px;
+        }
+
+        .window {
+            position: absolute;
+            background-color: #c0c0c0;
+            border-top: 2px solid #ffffff;
+            border-left: 2px solid #ffffff;
+            border-right: 2px solid #000000;
+            border-bottom: 2px solid #000000;
+            min-width: 300px;
+            min-height: 200px;
+            display: none;
+            z-index: 100;
+            resize: both;
+            overflow: auto;
+        }
+
+        .window-header {
+            background-color: #000080;
+            color: white;
+            padding: 3px 5px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        .window-buttons {
+            display: flex;
+        }
+
+        .window-button {
+            width: 16px;
+            height: 16px;
+            background-color: #c0c0c0;
+            border-top: 1px solid #ffffff;
+            border-left: 1px solid #ffffff;
+            border-right: 1px solid #000000;
+            border-bottom: 1px solid #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 2px;
+        }
+
+        .window-button:active {
+            border-top: 1px solid #000000;
+            border-left: 1px solid #000000;
+            border-right: 1px solid #ffffff;
+            border-bottom: 1px solid #ffffff;
+        }
+
+        .window-content {
+            padding: 10px;
+            overflow: auto;
+            height: calc(100% - 28px);
+        }
+
+        .window-content h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .window-content h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .window-content p, .window-content li {
+            font-size: 18px;
+        }
+
+        .window-content label {
+            font-size: 18px;
+        }
+
+        .window-content input, .window-content textarea {
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+            width: 100%;
+            margin-top: 5px;
+            padding: 3px;
+            border: 2px inset #dfdfdf;
+        }
+
+        .window-content button {
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: 2px outset #dfdfdf;
+            background-color: #c0c0c0;
+        }
+
         /* Welcome overlay styles */
         #welcome-overlay {
             position: fixed;
@@ -22,7 +244,7 @@
             align-items: center;
             z-index: 9999;
         }
-        
+
         .welcome-container {
             background-color: #c0c0c0;
             border-top: 2px solid #ffffff;
@@ -33,7 +255,7 @@
             padding: 10px;
             text-align: center;
         }
-        
+
         .welcome-header {
             background-color: #000080;
             color: white;
@@ -45,13 +267,13 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .welcome-content {
             margin-bottom: 20px;
             font-size: 22px;
         }
-        
-        .start-button {
+
+        .start-button-welcome {
             background-color: #c0c0c0;
             border-top: 2px solid #ffffff;
             border-left: 2px solid #ffffff;
@@ -60,23 +282,160 @@
             font-family: 'VT323', monospace;
             font-size: 22px;
             padding: 8px 20px;
-            cursor: pointer;
             margin-top: 10px;
         }
-        
-        .start-button:active {
+
+        .start-button-welcome:active {
             border-top: 2px solid #000000;
             border-left: 2px solid #000000;
             border-right: 2px solid #ffffff;
             border-bottom: 2px solid #ffffff;
         }
-        
-        .windows-logo {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 15px;
+
+        /* Mobile adjustments - keep original layout but make it accessible */
+        @media (max-width: 768px) {
+            body {
+                overflow: auto;
+            }
+
+            /* Keep the same left-side vertical layout but smaller */
+            .icon-grid {
+                left: 5px;
+                top: 10px;
+                gap: 3px;
+            }
+
+            .desktop-icon {
+                width: 80px;
+                height: 80px;
+            }
+
+            .desktop-icon img {
+                width: 48px;
+                height: 48px;
+            }
+
+            .desktop-icon p {
+                font-size: 14px;
+                max-width: 75px;
+            }
+
+            /* Make windows mobile-friendly but not full screen */
+            .window {
+                width: calc(100vw - 100px) !important;
+                height: calc(100vh - 120px) !important;
+                top: 20px !important;
+                left: 90px !important;
+                resize: none;
+                max-width: 500px;
+                max-height: 600px;
+            }
+
+            .window-header {
+                cursor: default; /* Disable dragging on mobile */
+                font-size: 16px;
+            }
+
+            .window-content {
+                padding: 8px;
+                font-size: 16px;
+            }
+
+            .window-content h2 {
+                font-size: 20px;
+            }
+
+            .window-content h3 {
+                font-size: 18px;
+            }
+
+            .window-content p, .window-content li {
+                font-size: 16px;
+                line-height: 1.4;
+            }
+
+            .window-content input, .window-content textarea {
+                font-size: 16px;
+            }
+
+            .window-content button {
+                font-size: 16px;
+                padding: 8px 12px;
+            }
+
+            /* Adjust welcome screen for mobile */
+            .welcome-container {
+                width: 90%;
+                max-width: 400px;
+                margin: 10px;
+            }
+
+            .welcome-header {
+                font-size: 20px;
+            }
+
+            .welcome-content {
+                font-size: 18px;
+            }
+
+            .start-button-welcome {
+                font-size: 18px;
+            }
+
+            /* Taskbar adjustments */
+            .taskbar {
+                height: 35px;
+            }
+
+            .start-button, .time {
+                height: 28px;
+                font-size: 16px;
+            }
         }
-        
+
+        /* Very small screens */
+        @media (max-width: 480px) {
+            .desktop-icon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .desktop-icon img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .desktop-icon p {
+                font-size: 12px;
+                max-width: 65px;
+            }
+
+            .window {
+                width: calc(100vw - 80px) !important;
+                left: 75px !important;
+            }
+
+            .window-content {
+                padding: 6px;
+            }
+
+            .window-content h2 {
+                font-size: 18px;
+            }
+
+            .window-content h3 {
+                font-size: 16px;
+            }
+
+            .window-content p, .window-content li {
+                font-size: 14px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
         /* Hide all alert or notification windows */
         .alert-dialog, .notification {
             display: none !important;
@@ -100,7 +459,7 @@
                 <p>Click the Start button below to explore.</p>
                 
                 <div style="display: flex; justify-content: center; width: 100%;">
-                    <button class="start-button" id="start-portfolio">Start Up</button>
+                    <button class="start-button-welcome" id="start-portfolio">Start Up</button>
                 </div>
             </div>
         </div>
@@ -109,27 +468,27 @@
     <div id="desktop">
         <div class="icon-grid">
             <div class="desktop-icon" data-window="about">
-                <img src="images/network.PNG" alt="About">
+                <img src="images/network.png" alt="About">
                 <p>About</p>
             </div>
             <div class="desktop-icon" data-window="experience">
-                <img src="images/palette.PNG" alt="Experience">
+                <img src="images/palette.png" alt="Experience">
                 <p>Experience</p>
             </div>
             <div class="desktop-icon" data-window="projects">
-                <img src="images/notepad.PNG" alt="Projects">
+                <img src="images/notepad.png" alt="Projects">
                 <p>Projects</p>
             </div>
             <div class="desktop-icon" data-window="contact">
-                <img src="images/computer.PNG" alt="Contact">
+                <img src="images/computer.png" alt="Contact">
                 <p>Contact Me</p>
             </div>
             <div class="desktop-icon" data-window="linkedin">
-                <img src="images/linkedin.PNG" alt="LinkedIn">
+                <img src="images/linkedin.png" alt="LinkedIn">
                 <p>LinkedIn</p>
             </div>
             <div class="desktop-icon" data-window="github">
-                <img src="images/github.PNG" alt="GitHub">
+                <img src="images/github.png" alt="GitHub">
                 <p>GitHub</p>
             </div>
         </div>
@@ -222,17 +581,17 @@
             <form id="contact-form" style="margin-top: 15px;">
                 <div style="margin-bottom: 10px;">
                     <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" style="width: 100%; margin-top: 5px; padding: 3px; border: 2px inset #dfdfdf;">
+                    <input type="text" id="name" name="name">
                 </div>
                 <div style="margin-bottom: 10px;">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" style="width: 100%; margin-top: 5px; padding: 3px; border: 2px inset #dfdfdf;">
+                    <input type="email" id="email" name="email">
                 </div>
                 <div style="margin-bottom: 10px;">
                     <label for="message">Message:</label>
-                    <textarea id="message" name="message" rows="4" style="width: 100%; margin-top: 5px; padding: 3px; border: 2px inset #dfdfdf;"></textarea>
+                    <textarea id="message" name="message" rows="4"></textarea>
                 </div>
-                <button type="submit" style="margin-top: 10px; padding: 3px 10px; border: 2px outset #dfdfdf; background-color: #c0c0c0; cursor: pointer;">Send Message</button>
+                <button type="submit">Send Message</button>
             </form>
         </div>
     </div>
@@ -249,7 +608,7 @@
         <div class="window-content">
             <h2>LinkedIn Profile</h2>
             <p>Click the button below to visit my LinkedIn profile:</p>
-            <button onclick="window.open('https://www.linkedin.com/in/jason-mansour/', '_blank')" style="margin-top: 15px; padding: 5px 10px; border: 2px outset #dfdfdf; background-color: #c0c0c0; cursor: pointer;">
+            <button onclick="window.open('https://www.linkedin.com/in/jason-mansour/', '_blank')">
                 Visit LinkedIn Profile
             </button>
         </div>
@@ -267,7 +626,7 @@
         <div class="window-content">
             <h2>GitHub Profile</h2>
             <p>Click the button below to visit my GitHub profile:</p>
-            <button onclick="window.open('https://github.com/jasonxmansour', '_blank')" style="margin-top: 15px; padding: 5px 10px; border: 2px outset #dfdfdf; background-color: #c0c0c0; cursor: pointer;">
+            <button onclick="window.open('https://github.com/jasonxmansour', '_blank')">
                 Visit GitHub Profile
             </button>
         </div>
@@ -281,18 +640,190 @@
     </div>
 
     <audio id="startup-sound">
-        <source src="images/Startsound.mp3" type="audio/mpeg">
+        <source src="images/startsound.mp3" type="audio/mpeg">
     </audio>
 
-    <script src="script.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // If user tries to access main.html directly without going through index.html first
-            if (!sessionStorage.getItem('bootSequence')) {
-                window.location.href = "index.html";
-                return;
-            }
+        // Set up the current time
+        function updateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            document.getElementById('current-time').textContent = `${hours}:${minutes} ${ampm}`;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Desktop icons click handler
+        const desktopIcons = document.querySelectorAll('.desktop-icon');
+        const windows = document.querySelectorAll('.window');
+
+        desktopIcons.forEach(icon => {
+            icon.addEventListener('click', function() {
+                const windowId = this.getAttribute('data-window');
+                const windowElement = document.getElementById(`${windowId}-window`);
+                
+                // Hide all windows first
+                windows.forEach(win => {
+                    win.style.zIndex = 50;
+                });
+                
+                // Show the selected window
+                windowElement.style.display = 'block';
+                windowElement.style.zIndex = 100;
+                
+                // Set all icons to inactive
+                desktopIcons.forEach(i => i.classList.remove('active'));
+                
+                // Set clicked icon to active
+                this.classList.add('active');
+            });
             
+            // Double click handler
+            icon.addEventListener('dblclick', function() {
+                const windowId = this.getAttribute('data-window');
+                const windowElement = document.getElementById(`${windowId}-window`);
+                
+                // Hide all windows first
+                windows.forEach(win => {
+                    win.style.zIndex = 50;
+                });
+                
+                // Show the selected window
+                windowElement.style.display = 'block';
+                windowElement.style.zIndex = 100;
+                
+                // Set all icons to inactive
+                desktopIcons.forEach(i => i.classList.remove('active'));
+                
+                // Set clicked icon to active
+                this.classList.add('active');
+            });
+        });
+
+        // Window control buttons
+        const closeButtons = document.querySelectorAll('.window-button.close');
+        const minimizeButtons = document.querySelectorAll('.window-button.minimize');
+        const maximizeButtons = document.querySelectorAll('.window-button.maximize');
+
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const windowElement = this.closest('.window');
+                windowElement.style.display = 'none';
+                
+                // Find and deactivate the corresponding icon
+                const windowId = windowElement.id.replace('-window', '');
+                document.querySelector(`.desktop-icon[data-window="${windowId}"]`).classList.remove('active');
+            });
+        });
+
+        minimizeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const windowElement = this.closest('.window');
+                windowElement.style.display = 'none';
+                
+                // Find and deactivate the corresponding icon
+                const windowId = windowElement.id.replace('-window', '');
+                document.querySelector(`.desktop-icon[data-window="${windowId}"]`).classList.remove('active');
+            });
+        });
+
+        maximizeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const windowElement = this.closest('.window');
+                
+                if (window.innerWidth > 768) { // Only allow maximize on desktop
+                    if (windowElement.style.width === '100%' && windowElement.style.height === 'calc(100% - 30px)') {
+                        // Restore
+                        windowElement.style.width = windowElement.getAttribute('data-prev-width');
+                        windowElement.style.height = windowElement.getAttribute('data-prev-height');
+                        windowElement.style.top = windowElement.getAttribute('data-prev-top');
+                        windowElement.style.left = windowElement.getAttribute('data-prev-left');
+                    } else {
+                        // Maximize
+                        windowElement.setAttribute('data-prev-width', windowElement.style.width);
+                        windowElement.setAttribute('data-prev-height', windowElement.style.height);
+                        windowElement.setAttribute('data-prev-top', windowElement.style.top);
+                        windowElement.setAttribute('data-prev-left', windowElement.style.left);
+                        
+                        windowElement.style.width = '100%';
+                        windowElement.style.height = 'calc(100% - 30px)';
+                        windowElement.style.top = '0';
+                        windowElement.style.left = '0';
+                    }
+                }
+            });
+        });
+
+        // Make windows draggable (desktop only)
+        const windowHeaders = document.querySelectorAll('.window-header');
+
+        windowHeaders.forEach(header => {
+            header.addEventListener('mousedown', function(e) {
+                if (e.target.classList.contains('window-button')) return;
+                if (window.innerWidth <= 768) return; // Disable dragging on mobile
+                
+                const windowElement = this.parentElement;
+                
+                // Bring to front
+                windows.forEach(win => {
+                    win.style.zIndex = 50;
+                });
+                windowElement.style.zIndex = 100;
+                
+                let isDragging = true;
+                
+                let offsetX = e.clientX - windowElement.getBoundingClientRect().left;
+                let offsetY = e.clientY - windowElement.getBoundingClientRect().top;
+                
+                function moveWindow(e) {
+                    if (!isDragging) return;
+                    
+                    const newX = e.clientX - offsetX;
+                    const newY = e.clientY - offsetY;
+                    
+                    windowElement.style.left = `${newX}px`;
+                    windowElement.style.top = `${newY}px`;
+                }
+                
+                document.addEventListener('mousemove', moveWindow);
+                
+                document.addEventListener('mouseup', function() {
+                    isDragging = false;
+                    document.removeEventListener('mousemove', moveWindow);
+                });
+            });
+        });
+
+        // Window click to bring to front
+        windows.forEach(windowElement => {
+            windowElement.addEventListener('mousedown', function() {
+                if (window.innerWidth <= 768) return; // Skip on mobile
+                windows.forEach(win => {
+                    win.style.zIndex = 50;
+                });
+                this.style.zIndex = 100;
+            });
+        });
+
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Thank you for your message! I will get back to you soon.');
+            this.reset();
+        });
+
+        // Start button functionality 
+        document.querySelector('.start-button').addEventListener('click', function() {
+            // Empty function - no alerts or popups
+        });
+
+        // Welcome screen functionality
+        document.addEventListener('DOMContentLoaded', function() {
             const welcomeOverlay = document.getElementById('welcome-overlay');
             const startButton = document.getElementById('start-portfolio');
             const startupSound = document.getElementById('startup-sound');
