@@ -15,14 +15,14 @@
             font-family: 'VT323', monospace;
         }
 
-        /* Debug cursor - try multiple formats and add a visible fallback */
+        /* Use the PNG since it displays correctly */
         * {
-            cursor: url('images/cursor.cur'), url('images/cursor.png'), crosshair !important;
+            cursor: url('images/cursor.png'), auto !important;
         }
 
         /* Ensure body and html also get the cursor */
         html, body {
-            cursor: url('images/cursor.cur'), url('images/cursor.png'), crosshair !important;
+            cursor: url('images/cursor.png'), auto !important;
         }
 
         body {
