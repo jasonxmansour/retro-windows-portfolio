@@ -717,7 +717,10 @@
                 
                 // Find and deactivate the corresponding icon
                 const windowId = windowElement.id.replace('-window', '');
-                document.querySelector(`.desktop-icon[data-window="${windowId}"]`).classList.remove('active');
+                const correspondingIcon = document.querySelector(`.desktop-icon[data-window="${windowId}"]`);
+                if (correspondingIcon) {
+                    correspondingIcon.classList.remove('active');
+                }
             });
         });
 
@@ -728,7 +731,10 @@
                 
                 // Find and deactivate the corresponding icon
                 const windowId = windowElement.id.replace('-window', '');
-                document.querySelector(`.desktop-icon[data-window="${windowId}"]`).classList.remove('active');
+                const correspondingIcon = document.querySelector(`.desktop-icon[data-window="${windowId}"]`);
+                if (correspondingIcon) {
+                    correspondingIcon.classList.remove('active');
+                }
             });
         });
 
@@ -739,16 +745,16 @@
                 if (window.innerWidth > 768) { // Only allow maximize on desktop
                     if (windowElement.style.width === '100%' && windowElement.style.height === 'calc(100% - 30px)') {
                         // Restore
-                        windowElement.style.width = windowElement.getAttribute('data-prev-width');
-                        windowElement.style.height = windowElement.getAttribute('data-prev-height');
-                        windowElement.style.top = windowElement.getAttribute('data-prev-top');
-                        windowElement.style.left = windowElement.getAttribute('data-prev-left');
+                        windowElement.style.width = windowElement.getAttribute('data-prev-width') || '400px';
+                        windowElement.style.height = windowElement.getAttribute('data-prev-height') || '300px';
+                        windowElement.style.top = windowElement.getAttribute('data-prev-top') || '50px';
+                        windowElement.style.left = windowElement.getAttribute('data-prev-left') || '50px';
                     } else {
                         // Maximize
-                        windowElement.setAttribute('data-prev-width', windowElement.style.width);
-                        windowElement.setAttribute('data-prev-height', windowElement.style.height);
-                        windowElement.setAttribute('data-prev-top', windowElement.style.top);
-                        windowElement.setAttribute('data-prev-left', windowElement.style.left);
+                        windowElement.setAttribute('data-prev-width', windowElement.style.width || '400px');
+                        windowElement.setAttribute('data-prev-height', windowElement.style.height || '300px');
+                        windowElement.setAttribute('data-prev-top', windowElement.style.top || '50px');
+                        windowElement.setAttribute('data-prev-left', windowElement.style.left || '50px');
                         
                         windowElement.style.width = '100%';
                         windowElement.style.height = 'calc(100% - 30px)';
@@ -795,7 +801,7 @@
                 document.addEventListener('mouseup', function() {
                     isDragging = false;
                     document.removeEventListener('mousemove', moveWindow);
-                });
+                }, { once: true });
             });
         });
 
@@ -811,16 +817,14 @@
         });
 
         // Contact form submission
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            console.log('Thank you for your message! I will get back to you soon.');
-            this.reset();
-        });
-
-        // Start button functionality 
-        document.querySelector('.start-button').addEventListener('click', function() {
-            // Empty function - no alerts or popups
-        });
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('Thank you for your message! I will get back to you soon.');
+                this.reset();
+            });
+        }
 
         // Welcome screen functionality
         document.addEventListener('DOMContentLoaded', function() {
@@ -828,27 +832,41 @@
             const startButton = document.getElementById('start-portfolio');
             const startupSound = document.getElementById('startup-sound');
             
+            if (!welcomeOverlay || !startButton) {
+                console.error('Welcome overlay or start button not found');
+                return;
+            }
+            
             // Show the welcome overlay by default
             welcomeOverlay.style.display = 'flex';
             
             // Handle Start button click
             startButton.addEventListener('click', function() {
-                // Play the startup sound
-                startupSound.play()
-                    .then(() => {
-                        // Hide the welcome overlay with a slight delay
-                        setTimeout(function() {
+                console.log('Start button clicked');
+                
+                // Try to play the startup sound
+                if (startupSound) {
+                    startupSound.play()
+                        .then(() => {
+                            console.log('Audio started playing');
+                            // Hide the welcome overlay with a slight delay
+                            setTimeout(function() {
+                                welcomeOverlay.style.display = 'none';
+                                sessionStorage.setItem('welcomeShown', 'true');
+                            }, 500);
+                        })
+                        .catch(e => {
+                            console.error("Audio play failed:", e);
+                            // If audio fails, still hide overlay
                             welcomeOverlay.style.display = 'none';
-                            // Set flag to remember we've shown the welcome screen
                             sessionStorage.setItem('welcomeShown', 'true');
-                        }, 500);
-                    })
-                    .catch(e => {
-                        console.error("Audio play failed:", e);
-                        // If audio fails, still hide overlay
-                        welcomeOverlay.style.display = 'none';
-                        sessionStorage.setItem('welcomeShown', 'true');
-                    });
+                        });
+                } else {
+                    console.log('No audio element found, proceeding without sound');
+                    // Still hide overlay if no audio
+                    welcomeOverlay.style.display = 'none';
+                    sessionStorage.setItem('welcomeShown', 'true');
+                }
             });
             
             // If user already went through the welcome screen in this session, hide it
